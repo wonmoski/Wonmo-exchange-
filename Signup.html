@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Create Account | Wonmo Exchange</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #050505;
+      color: white;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      background:
+        radial-gradient(circle at top, #302405, #050505 55%);
+    }
+
+    .box {
+      width: 100%;
+      max-width: 480px;
+      background: #0d0d0d;
+      border: 1px solid #d4af37;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
+
+    .logo {
+      text-align: center;
+      color: #d4af37;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #999;
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      background: #171717;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #d4af37;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 15px;
+      border: 0;
+      border-radius: 7px;
+      background: #d4af37;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    button:disabled {
+      opacity: .6;
+    }
+
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .login {
+      text-align: center;
+      margin-top: 22px;
+      color: #999;
+      font-size: 14px;
+    }
+
+    .login a {
+      color: #d4af37;
+      text-decoration: none;
+    }
+
+    .terms {
+      color: #777;
+      font-size: 12px;
+      margin-top: 18px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <div class="box">
+
+    <div class="logo">
+      WONMO EXCHANGE
+    </div>
+
+    <h1>Create Account</h1>
+
+    <p class="subtitle">
+      Create your secure customer profile.
+    </p>
+
+
+    <label for="name">
+      Full Name
+    </label>
+
+    <input
+      id="name"
+      type="text"
+      placeholder="Enter your full name"
+      autocomplete="name"
+    >
+
+
+    <label for="phone">
+      Phone / WhatsApp
+    </label>
+
+    <input
+      id="phone"
+      type="tel"
+      placeholder="Enter your phone number"
+      autocomplete="tel"
+    >
+
+
+    <label for="email">
+      Email Address
+    </label>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="you@example.com"
+      autocomplete="email"
+    >
+
+
+    <label for="password">
+      Password
+    </label>
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Create a strong password"
+      autocomplete="new-password"
+    >
+
+
+    <button
+      id="signupButton"
+      onclick="signUp()">
+
+      Create Account
+
+    </button>
+
+
+    <div
+      id="message"
+      class="message">
+    </div>
+
+
+    <div class="terms">
+      By creating an account, you agree to use
+      Wonmo Exchange in accordance with its terms
+      and applicable laws.
+    </div>
+
+
+    <div class="login">
+
+      Already have an account?
+
+      <a href="login.html">
+        Log in
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  /*
+  ==========================================
+  PUT YOUR SUPABASE INFORMATION HERE
+  ==========================================
+
+  Replace ONLY the two values below.
+
+  Do NOT put a Supabase SECRET key here.
+  Use your Publishable key.
+  */
+
+
+  const SUPABASE_URL =
+    "https://mxxbqbqudavouycdspfz.supabase.co/rest/v1/";
+
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_PQI2Aw-4xlUaelLJD2pUyA_XAi5MzqX";
+
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+  async function signUp() {
+
+    const name =
+      document.getElementById("name").value.trim();
+
+    const phone =
+      document.getElementById("phone").value.trim();
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+
+    const message =
+      document.getElementById("message");
+
+    const button =
+      document.getElementById("signupButton");
+
+
+    message.innerText = "";
+
+
+    if (!name || !phone || !email || !password) {
+
+      message.innerText =
+        "Please complete all fields.";
+
+      return;
+
+    }
+
+
+    if (password.length < 8) {
+
+      message.innerText =
+        "Your password must be at least 8 characters.";
+
+      return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.innerText =
+      "Creating account...";
+
+
+    const {
+      data,
+      error
+    } = await supabaseClient.auth.signUp({
+
+      email: email,
+
+      password: password,
+
+      options: {
+
+        data: {
+
+          full_name: name,
+
+          phone: phone
+
+        }
+
+      }
+
+    });
+
+
+    if (error) {
+
+      message.innerText =
+        error.message;
+
+      button.disabled = false;
+
+      button.innerText =
+        "Create Account";
+
+      return;
+
+    }
+
+
+    /*
+      Create the customer's profile.
+    */
+
+    if (data.user) {
+
+      const {
+        error: profileError
+      } = await supabaseClient
+        .from("profiles")
+        .insert({
+
+          id: data.user.id,
+
+          full_name: name,
+
+          phone: phone
+
+        });
+
+
+      if (profileError) {
+
+        console.log(profileError);
+
+      }
+
+    }
+
+
+    message.innerText =
+      "Account created. Check your email if verification is required.";
+
+
+    button.innerText =
+      "Account Created";
+
+
+    setTimeout(function() {
+
+      window.location.href =
+        "login.html";
+
+    }, 2500);
+
+  }
+
+</script>
+
+</body>
+</html>
