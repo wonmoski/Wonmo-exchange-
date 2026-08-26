@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Continue Exchange | Wonmo Exchange</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: white;
+      line-height: 1.5;
+    }
+
+    nav {
+      background: #050505;
+      border-bottom: 1px solid #8f721b;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 23px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #d4af37;
+    }
+
+    .page {
+      min-height: calc(100vh - 70px);
+      padding: 55px 18px 80px;
+      background:
+        radial-gradient(circle at top, #302405 0%, #090909 42%, #000 100%);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .heading h1 {
+      color: #d4af37;
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
+
+    .heading p {
+      color: #aaa;
+    }
+
+    .order-card {
+      background: #0d0d0d;
+      border: 1px solid #665214;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+    }
+
+    .step {
+      color: #d4af37;
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      color: #ddd;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    select,
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      background: #151515;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 7px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: #d4af37;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .summary {
+      background: #151515;
+      border: 1px solid #4e3d10;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 8px 0;
+      color: #aaa;
+    }
+
+    .summary-row strong {
+      color: white;
+      text-align: right;
+    }
+
+    .summary-total {
+      border-top: 1px solid #444;
+      margin-top: 10px;
+      padding-top: 15px;
+    }
+
+    .summary-total strong {
+      color: #d4af37;
+      font-size: 20px;
+    }
+
+    .asset-box {
+      display: none;
+    }
+
+    .asset-box.active {
+      display: block;
+    }
+
+    .warning {
+      background: #17130a;
+      border: 1px solid #6b5413;
+      color: #cfc09a;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .submit {
+      width: 100%;
+      border: 0;
+      border-radius: 7px;
+      padding: 16px;
+      background: #d4af37;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit:hover {
+      background: #f0d36a;
+    }
+
+    .small {
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      margin-top: 15px;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      background: #111;
+      border: 1px solid #d4af37;
+      border-radius: 10px;
+      padding: 25px;
+      margin-top: 25px;
+    }
+
+    .success h2 {
+      color: #d4af37;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      background: #000;
+      border-top: 1px solid #493b12;
+      color: #777;
+      padding: 25px;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    @media (max-width: 600px) {
+
+      nav {
+        padding: 16px 20px;
+      }
+
+      nav div:last-child {
+        display: none;
+      }
+
+      .order-card {
+        padding: 22px;
+      }
+
+      .two {
+        grid-template-columns: 1fr;
+      }
+
+      .heading h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">WONMO EXCHANGE</div>
+
+  <div>
+    <a href="index.html">Home</a>
+    <a href="exchange.html">Exchange</a>
+  </div>
+</nav>
+
+
+<main class="page">
+
+  <div class="container">
+
+    <div class="heading">
+      <h1>Continue Exchange</h1>
+      <p>Complete your exchange request below.</p>
+    </div>
+
+
+    <div class="order-card">
+
+      <!-- STEP 1 -->
+
+      <div class="section">
+
+        <div class="step">Step 1</div>
+
+        <label for="exchangeType">
+          What would you like to exchange?
+        </label>
+
+        <select id="exchangeType" onchange="changeType()">
+
+          <option value="giftcard">
+            Gift Card
+          </option>
+
+          <option value="crypto">
+            Cryptocurrency
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- GIFT CARD -->
+
+      <div id="giftcardBox" class="asset-box active">
+
+        <div class="section">
+
+          <div class="step">Gift Card</div>
+
+          <label for="giftCard">
+            Gift card type
+          </label>
+
+          <select id="giftCard">
+
+            <option>Amazon</option>
+            <option>Apple</option>
+            <option>Google Play</option>
+            <option>Steam</option>
+            <option>Walmart</option>
+            <option>eBay</option>
+            <option>Other</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="two">
+
+          <div class="section">
+
+            <label for="giftValue">
+              Gift card value
+            </label>
+
+            <input
+              id="giftValue"
+              type="number"
+              placeholder="Enter value"
+              min="0"
+              oninput="updateSummary()">
+
+          </div>
+
+
+          <div class="section">
+
+            <label for="giftCurrency">
+              Currency
+            </label>
+
+            <select id="giftCurrency" onchange="updateSummary()">
+
+              <option value="USD">USD</option>
+              <option value="GBP">GBP</option>
+              <option value="EUR">EUR</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- CRYPTO -->
+
+      <div id="cryptoBox" class="asset-box">
+
+        <div class="section">
+
+          <div class="step">Cryptocurrency</div>
+
+          <label for="crypto">
+            Cryptocurrency
+          </label>
+
+          <select id="crypto" onchange="updateSummary()">
+
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="ETH">Ethereum (ETH)</option>
+            <option value="USDT">Tether (USDT)</option>
+            <option value="USDC">USD Coin (USDC)</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="section">
+
+          <label for="cryptoAmount">
+            Amount
+          </label>
+
+          <input
+            id="cryptoAmount"
+            type="number"
+            placeholder="Enter amount"
+            min="0"
+            step="any"
+            oninput="updateSummary()">
+
+        </div>
+
+
+        <div class="warning">
+          Cryptocurrency values can change rapidly. Final
+          rates and transaction details must be confirmed
+          through the secure transaction system.
+        </div>
+
+      </div>
+
+
+      <!-- CUSTOMER -->
+
+      <div class="section">
+
+        <div class="step">Step 2</div>
+
+        <label for="fullName">
+          Full name
+        </label>
+
+        <input
+          id="fullName"
+          type="text"
+          placeholder="Your full name">
+
+      </div>
+
+
+      <div class="two">
+
+        <div class="section">
+
+          <label for="email">
+            Email address
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            placeholder="you@example.com">
+
+        </div>
+
+
+        <div class="section">
+
+          <label for="phone">
+            Phone / WhatsApp
+          </label>
+
+          <input
+            id="phone"
+            type="tel"
+            placeholder="Your phone number">
+
+        </div>
+
+      </div>
+
+
+      <!-- RECEIVING CURRENCY -->
+
+      <div class="section">
+
+        <div class="step">Step 3</div>
+
+        <label for="receiveCurrency">
+          Currency you want to receive
+        </label>
+
+        <select
+          id="receiveCurrency"
+          onchange="updateSummary()">
+
+          <option value="NGN">
+            Nigerian Naira (NGN)
+          </option>
+
+          <option value="USD">
+            US Dollar (USD)
+          </option>
+
+          <option value="GBP">
+            British Pound (GBP)
+          </option>
+
+          <option value="EUR">
+            Euro (EUR)
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- CUSTOMER DETAILS -->
+
+      <div class="section">
+
+        <label for="paymentDetails">
+          Receiving/payment details
+        </label>
+
+        <textarea
+          id="paymentDetails"
+          placeholder="Enter the details needed for your exchange request. Do not enter passwords, PINs, seed phrases, or private keys."></textarea>
+
+      </div>
+
+
+      <!-- SUMMARY -->
+
+      <div class="summary">
+
+        <div class="step">
+          Order Summary
+        </div>
+
+        <div class="summary-row">
+          <span>Exchange type</span>
+          <strong id="summaryType">Gift Card</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Asset</span>
+          <strong id="summaryAsset">Amazon</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Amount</span>
+          <strong id="summaryAmount">Not entered</strong>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>Estimated payout</span>
+          <strong id="summaryPayout">To be confirmed</strong>
+        </div>
+
+      </div>
+
+
+      <button
+        class="submit"
+        onclick="submitOrder()">
+
+        Submit Exchange Request
+
+      </button>
+
+
+      <div class="success" id="success">
+
+        <h2>Request Created</h2>
+
+        <p>
+          Your exchange request has been recorded as a
+          demonstration order.
+        </p>
+
+        <p class="small">
+          A secure backend must be connected before real
+          customer transactions are processed.
+        </p>
+
+      </div>
+
+
+      <p class="small">
+        Never provide passwords, PINs, seed phrases,
+        private keys, or wallet recovery phrases.
+      </p>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  © 2026 <strong>Wonmo Exchange</strong>.
+  All rights reserved.
+
+</footer>
+
+
+<script>
+
+  function changeType() {
+
+    const type =
+      document.getElementById("exchangeType").value;
+
+    const gift =
+      document.getElementById("giftcardBox");
+
+    const crypto =
+      document.getElementById("cryptoBox");
+
+    if (type === "giftcard") {
+
+      gift.classList.add("active");
+      crypto.classList.remove("active");
+
+    } else {
+
+      gift.classList.remove("active");
+      crypto.classList.add("active");
+
+    }
+
+    updateSummary();
+  }
+
+
+  function updateSummary() {
+
+    const type =
+      document.getElementById("exchangeType").value;
+
+    const receive =
+      document.getElementById("receiveCurrency").value;
+
+    document.getElementById("summaryType").innerText =
+      type === "giftcard"
+        ? "Gift Card"
+        : "Cryptocurrency";
+
+
+    if (type === "giftcard") {
+
+      const card =
+        document.getElementById("giftCard").value;
+
+      const amount =
+        document.getElementById("giftValue").value;
+
+      const currency =
+        document.getElementById("giftCurrency").value;
+
+      document.getElementById("summaryAsset").innerText =
+        card;
+
+      document.getElementById("summaryAmount").innerText =
+        amount
+          ? currency + " " + Number(amount).toLocaleString()
+          : "Not entered";
+
+    } else {
+
+      const crypto =
+        document.getElementById("crypto").value;
+
+      const amount =
+        document.getElementById("cryptoAmount").value;
+
+      document.getElementById("summaryAsset").innerText =
+        crypto;
+
+      document.getElementById("summaryAmount").innerText =
+        amount
+          ? amount + " " + crypto
+          : "Not entered";
+
+    }
+
+    /*
+      Payout is intentionally not calculated here.
+      A real payout should use a secure server-side rate
+      and transaction system.
+    */
+
+    document.getElementById("summaryPayout").innerText =
+      "To be confirmed in final quote";
+  }
+
+
+  function submitOrder() {
+
+    const name =
+      document.getElementById("fullName").value.trim();
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const phone =
+      document.getElementById("phone").value.trim();
+
+    if (!name || !email || !phone) {
+
+      alert(
+        "Please enter your name, email address, and phone number."
+      );
+
+      return;
+    }
+
+    document.getElementById("success").style.display =
+      "block";
+
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  updateSummary();
+
+</script>
+
+</body>
+</html>
