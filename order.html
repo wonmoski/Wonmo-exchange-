@@ -22,7 +22,7 @@
 
     nav {
       background: #050505;
-      border-bottom: 1px solid #8f721b;
+      border-bottom: 1px solid #d4af37;
       padding: 18px 6%;
       display: flex;
       justify-content: space-between;
@@ -55,7 +55,7 @@
     }
 
     .container {
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
     }
 
@@ -82,17 +82,17 @@
       box-shadow: 0 20px 60px rgba(0,0,0,.55);
     }
 
+    .section {
+      margin-bottom: 28px;
+    }
+
     .step {
       color: #d4af37;
       font-size: 13px;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .section {
-      margin-bottom: 28px;
+      margin-bottom: 9px;
     }
 
     label {
@@ -132,6 +132,107 @@
       gap: 15px;
     }
 
+    /* GIFT CARD */
+
+    .gift-section,
+    .crypto-section {
+      display: none;
+    }
+
+    .gift-section.active,
+    .crypto-section.active {
+      display: block;
+    }
+
+    .upload-box {
+      border: 1px dashed #8d741e;
+      background: #111;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .upload-icon {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .upload-box p {
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .upload-box input {
+      border: 1px solid #444;
+    }
+
+    .preview {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .preview img {
+      max-width: 100%;
+      max-height: 220px;
+      border-radius: 8px;
+      border: 1px solid #d4af37;
+    }
+
+    /* RATE */
+
+    .rate-card {
+      background: #171717;
+      border: 1px solid #4e3d10;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .rate-label {
+      color: #999;
+      font-size: 13px;
+    }
+
+    .rate-value {
+      color: #d4af37;
+      font-size: 21px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    /* PAYOUT */
+
+    .payout {
+      background: linear-gradient(145deg, #191507, #0e0e0e);
+      border: 1px solid #d4af37;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .payout-label {
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .payout-value {
+      color: #d4af37;
+      font-size: 34px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .payout-note {
+      color: #777;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    /* SUMMARY */
+
     .summary {
       background: #151515;
       border: 1px solid #4e3d10;
@@ -164,13 +265,7 @@
       font-size: 20px;
     }
 
-    .asset-box {
-      display: none;
-    }
-
-    .asset-box.active {
-      display: block;
-    }
+    /* WARNING */
 
     .warning {
       background: #17130a;
@@ -181,6 +276,8 @@
       font-size: 13px;
       margin-top: 15px;
     }
+
+    /* BUTTON */
 
     .submit {
       width: 100%;
@@ -203,6 +300,7 @@
       color: #777;
       font-size: 12px;
       margin-top: 15px;
+      line-height: 1.5;
     }
 
     .success {
@@ -253,6 +351,10 @@
       .heading h1 {
         font-size: 34px;
       }
+
+      .payout-value {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
@@ -260,12 +362,16 @@
 <body>
 
 <nav>
-  <div class="logo">WONMO EXCHANGE</div>
+
+  <div class="logo">
+    WONMO EXCHANGE
+  </div>
 
   <div>
     <a href="index.html">Home</a>
     <a href="exchange.html">Exchange</a>
   </div>
+
 </nav>
 
 
@@ -274,24 +380,34 @@
   <div class="container">
 
     <div class="heading">
+
       <h1>Continue Exchange</h1>
-      <p>Complete your exchange request below.</p>
+
+      <p>
+        Submit your gift card or cryptocurrency exchange request.
+      </p>
+
     </div>
 
 
     <div class="order-card">
 
+
       <!-- STEP 1 -->
 
       <div class="section">
 
-        <div class="step">Step 1</div>
+        <div class="step">
+          Step 1
+        </div>
 
         <label for="exchangeType">
-          What would you like to exchange?
+          What are you exchanging?
         </label>
 
-        <select id="exchangeType" onchange="changeType()">
+        <select
+          id="exchangeType"
+          onchange="changeType()">
 
           <option value="giftcard">
             Gift Card
@@ -306,27 +422,55 @@
       </div>
 
 
-      <!-- GIFT CARD -->
+      <!-- ========================= -->
+      <!-- GIFT CARD SECTION -->
+      <!-- ========================= -->
 
-      <div id="giftcardBox" class="asset-box active">
+      <div
+        id="giftcardSection"
+        class="gift-section active">
 
         <div class="section">
 
-          <div class="step">Gift Card</div>
+          <div class="step">
+            Gift Card Details
+          </div>
 
           <label for="giftCard">
-            Gift card type
+            Gift card brand
           </label>
 
-          <select id="giftCard">
+          <select
+            id="giftCard"
+            onchange="updateGiftRate()">
 
-            <option>Amazon</option>
-            <option>Apple</option>
-            <option>Google Play</option>
-            <option>Steam</option>
-            <option>Walmart</option>
-            <option>eBay</option>
-            <option>Other</option>
+            <option value="amazon">
+              Amazon
+            </option>
+
+            <option value="apple">
+              Apple
+            </option>
+
+            <option value="google">
+              Google Play
+            </option>
+
+            <option value="steam">
+              Steam
+            </option>
+
+            <option value="walmart">
+              Walmart
+            </option>
+
+            <option value="ebay">
+              eBay
+            </option>
+
+            <option value="other">
+              Other
+            </option>
 
           </select>
 
@@ -338,15 +482,16 @@
           <div class="section">
 
             <label for="giftValue">
-              Gift card value
+              Card value
             </label>
 
             <input
               id="giftValue"
               type="number"
-              placeholder="Enter value"
               min="0"
-              oninput="updateSummary()">
+              step="0.01"
+              placeholder="Enter card value"
+              oninput="calculateGift()">
 
           </div>
 
@@ -354,16 +499,114 @@
           <div class="section">
 
             <label for="giftCurrency">
-              Currency
+              Card currency
             </label>
 
-            <select id="giftCurrency" onchange="updateSummary()">
+            <select
+              id="giftCurrency"
+              onchange="calculateGift()">
 
-              <option value="USD">USD</option>
-              <option value="GBP">GBP</option>
-              <option value="EUR">EUR</option>
+              <option value="USD">
+                USD
+              </option>
+
+              <option value="GBP">
+                GBP
+              </option>
+
+              <option value="EUR">
+                EUR
+              </option>
 
             </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- GIFT CARD RATE -->
+
+        <div class="rate-card">
+
+          <div class="rate-label">
+            Estimated Gift Card Rate
+          </div>
+
+          <div
+            class="rate-value"
+            id="giftRate">
+
+            ₦1,200 per $1
+
+          </div>
+
+        </div>
+
+
+        <!-- GIFT PAYOUT -->
+
+        <div class="payout">
+
+          <div class="payout-label">
+            Estimated Naira Payout
+          </div>
+
+          <div
+            class="payout-value"
+            id="giftPayout">
+
+            ₦0.00
+
+          </div>
+
+          <div class="payout-note">
+            Final payout is confirmed after review.
+          </div>
+
+        </div>
+
+
+        <!-- UPLOAD -->
+
+        <div class="section" style="margin-top:25px;">
+
+          <div class="step">
+            Upload Gift Card
+          </div>
+
+          <div class="upload-box">
+
+            <div class="upload-icon">
+              📎
+            </div>
+
+            <p>
+              Upload a clear image of your gift card.
+            </p>
+
+            <input
+              type="file"
+              id="giftImage"
+              accept="image/*"
+              onchange="previewImage(event)">
+
+            <div
+              class="preview"
+              id="imagePreview">
+
+              <img
+                id="preview"
+                alt="Gift card preview">
+
+            </div>
+
+          </div>
+
+          <div class="warning">
+
+            Never upload passwords, banking PINs,
+            crypto seed phrases, or private wallet keys.
 
           </div>
 
@@ -372,24 +615,43 @@
       </div>
 
 
-      <!-- CRYPTO -->
+      <!-- ========================= -->
+      <!-- CRYPTO SECTION -->
+      <!-- ========================= -->
 
-      <div id="cryptoBox" class="asset-box">
+      <div
+        id="cryptoSection"
+        class="crypto-section">
 
         <div class="section">
 
-          <div class="step">Cryptocurrency</div>
+          <div class="step">
+            Cryptocurrency Details
+          </div>
 
           <label for="crypto">
             Cryptocurrency
           </label>
 
-          <select id="crypto" onchange="updateSummary()">
+          <select
+            id="crypto"
+            onchange="calculateCrypto()">
 
-            <option value="BTC">Bitcoin (BTC)</option>
-            <option value="ETH">Ethereum (ETH)</option>
-            <option value="USDT">Tether (USDT)</option>
-            <option value="USDC">USD Coin (USDC)</option>
+            <option value="BTC">
+              Bitcoin (BTC)
+            </option>
+
+            <option value="ETH">
+              Ethereum (ETH)
+            </option>
+
+            <option value="USDT">
+              Tether (USDT)
+            </option>
+
+            <option value="USDC">
+              USD Coin (USDC)
+            </option>
 
           </select>
 
@@ -405,28 +667,73 @@
           <input
             id="cryptoAmount"
             type="number"
-            placeholder="Enter amount"
             min="0"
             step="any"
-            oninput="updateSummary()">
+            placeholder="Enter crypto amount"
+            oninput="calculateCrypto()">
+
+        </div>
+
+
+        <div class="rate-card">
+
+          <div class="rate-label">
+            Estimated Crypto Rate
+          </div>
+
+          <div
+            class="rate-value"
+            id="cryptoRate">
+
+            Select cryptocurrency
+
+          </div>
+
+        </div>
+
+
+        <div class="payout">
+
+          <div class="payout-label">
+            Estimated Naira Payout
+          </div>
+
+          <div
+            class="payout-value"
+            id="cryptoPayout">
+
+            ₦0.00
+
+          </div>
+
+          <div class="payout-note">
+            Crypto prices can change. Final payout is confirmed
+            before the transaction is completed.
+          </div>
 
         </div>
 
 
         <div class="warning">
-          Cryptocurrency values can change rapidly. Final
-          rates and transaction details must be confirmed
-          through the secure transaction system.
+
+          Only send cryptocurrency to a wallet address
+          provided through the secure transaction system.
+          Never share your seed phrase or private key.
+
         </div>
 
       </div>
 
 
-      <!-- CUSTOMER -->
+      <!-- ========================= -->
+      <!-- CUSTOMER INFORMATION -->
+      <!-- ========================= -->
 
       <div class="section">
 
-        <div class="step">Step 2</div>
+        <div class="step">
+          Step 2
+        </div>
 
         <label for="fullName">
           Full name
@@ -472,34 +779,22 @@
       </div>
 
 
-      <!-- RECEIVING CURRENCY -->
+      <!-- RECEIVE CURRENCY -->
 
       <div class="section">
 
-        <div class="step">Step 3</div>
+        <div class="step">
+          Step 3
+        </div>
 
         <label for="receiveCurrency">
-          Currency you want to receive
+          Preferred payout currency
         </label>
 
-        <select
-          id="receiveCurrency"
-          onchange="updateSummary()">
+        <select id="receiveCurrency">
 
           <option value="NGN">
-            Nigerian Naira (NGN)
-          </option>
-
-          <option value="USD">
-            US Dollar (USD)
-          </option>
-
-          <option value="GBP">
-            British Pound (GBP)
-          </option>
-
-          <option value="EUR">
-            Euro (EUR)
+            Nigerian Naira (₦)
           </option>
 
         </select>
@@ -507,51 +802,87 @@
       </div>
 
 
-      <!-- CUSTOMER DETAILS -->
+      <!-- PAYMENT DETAILS -->
 
       <div class="section">
 
         <label for="paymentDetails">
-          Receiving/payment details
+          Payout details
         </label>
 
         <textarea
           id="paymentDetails"
-          placeholder="Enter the details needed for your exchange request. Do not enter passwords, PINs, seed phrases, or private keys."></textarea>
+          placeholder="Enter the payout details requested by Wonmo Exchange. Do not enter passwords, PINs, seed phrases, or private keys."></textarea>
 
       </div>
 
 
+      <!-- ========================= -->
       <!-- SUMMARY -->
+      <!-- ========================= -->
 
       <div class="summary">
 
         <div class="step">
-          Order Summary
+          Exchange Summary
         </div>
 
-        <div class="summary-row">
-          <span>Exchange type</span>
-          <strong id="summaryType">Gift Card</strong>
-        </div>
 
         <div class="summary-row">
-          <span>Asset</span>
-          <strong id="summaryAsset">Amazon</strong>
+
+          <span>
+            Exchange type
+          </span>
+
+          <strong id="summaryType">
+            Gift Card
+          </strong>
+
         </div>
 
+
         <div class="summary-row">
-          <span>Amount</span>
-          <strong id="summaryAmount">Not entered</strong>
+
+          <span>
+            Asset
+          </span>
+
+          <strong id="summaryAsset">
+            Amazon
+          </strong>
+
         </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Amount
+          </span>
+
+          <strong id="summaryAmount">
+            Not entered
+          </strong>
+
+        </div>
+
 
         <div class="summary-row summary-total">
-          <span>Estimated payout</span>
-          <strong id="summaryPayout">To be confirmed</strong>
+
+          <span>
+            Estimated payout
+          </span>
+
+          <strong id="summaryPayout">
+            ₦0.00
+          </strong>
+
         </div>
 
       </div>
 
+
+      <!-- SUBMIT -->
 
       <button
         class="submit"
@@ -562,26 +893,33 @@
       </button>
 
 
-      <div class="success" id="success">
+      <div
+        class="success"
+        id="success">
 
-        <h2>Request Created</h2>
+        <h2>
+          Request Ready
+        </h2>
 
         <p>
-          Your exchange request has been recorded as a
-          demonstration order.
+          Your exchange request has been prepared.
         </p>
 
         <p class="small">
-          A secure backend must be connected before real
-          customer transactions are processed.
+          A secure backend is required before this form
+          can actually transmit customer orders or
+          uploaded gift-card images.
         </p>
 
       </div>
 
 
       <p class="small">
-        Never provide passwords, PINs, seed phrases,
-        private keys, or wallet recovery phrases.
+
+        Estimated rates are for demonstration only.
+        Final rates and payouts must be confirmed before
+        completing an exchange.
+
       </p>
 
     </div>
@@ -593,7 +931,8 @@
 
 <footer>
 
-  © 2026 <strong>Wonmo Exchange</strong>.
+  © 2026
+  <strong>Wonmo Exchange</strong>.
   All rights reserved.
 
 </footer>
@@ -601,16 +940,55 @@
 
 <script>
 
+  /*
+    DEMO GIFT CARD RATES
+
+    These are examples only.
+    Replace them with rates from your
+    legitimate exchange operation/backend.
+  */
+
+  const giftRates = {
+
+    amazon: 1200,
+    apple: 1150,
+    google: 1100,
+    steam: 1050,
+    walmart: 1100,
+    ebay: 1080,
+    other: 1000
+
+  };
+
+
+  /*
+    DEMO CRYPTO RATES
+
+    These are examples only and are NOT
+    live market prices.
+  */
+
+  const cryptoRates = {
+
+    BTC: 95000000,
+    ETH: 4500000,
+    USDT: 1500,
+    USDC: 1500
+
+  };
+
+
   function changeType() {
 
     const type =
       document.getElementById("exchangeType").value;
 
     const gift =
-      document.getElementById("giftcardBox");
+      document.getElementById("giftcardSection");
 
     const crypto =
-      document.getElementById("cryptoBox");
+      document.getElementById("cryptoSection");
+
 
     if (type === "giftcard") {
 
@@ -625,6 +1003,135 @@
     }
 
     updateSummary();
+
+  }
+
+
+  function updateGiftRate() {
+
+    const card =
+      document.getElementById("giftCard").value;
+
+    const currency =
+      document.getElementById("giftCurrency").value;
+
+    let rate =
+      giftRates[card];
+
+
+    /*
+      Demo currency adjustment.
+      These values are only examples.
+    */
+
+    if (currency === "GBP") {
+      rate = rate * 1.25;
+    }
+
+    if (currency === "EUR") {
+      rate = rate * 1.08;
+    }
+
+
+    document.getElementById("giftRate").innerText =
+      "₦" +
+      Math.round(rate).toLocaleString() +
+      " per " +
+      currency;
+
+
+    calculateGift();
+
+  }
+
+
+  function calculateGift() {
+
+    const card =
+      document.getElementById("giftCard").value;
+
+    const currency =
+      document.getElementById("giftCurrency").value;
+
+    const amount =
+      parseFloat(
+        document.getElementById("giftValue").value
+      ) || 0;
+
+
+    let rate =
+      giftRates[card];
+
+
+    if (currency === "GBP") {
+      rate = rate * 1.25;
+    }
+
+    if (currency === "EUR") {
+      rate = rate * 1.08;
+    }
+
+
+    const payout =
+      amount * rate;
+
+
+    document.getElementById("giftRate").innerText =
+      "₦" +
+      Math.round(rate).toLocaleString() +
+      " per " +
+      currency;
+
+
+    document.getElementById("giftPayout").innerText =
+      "₦" +
+      payout.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+
+    updateSummary();
+
+  }
+
+
+  function calculateCrypto() {
+
+    const crypto =
+      document.getElementById("crypto").value;
+
+    const amount =
+      parseFloat(
+        document.getElementById("cryptoAmount").value
+      ) || 0;
+
+
+    const rate =
+      cryptoRates[crypto];
+
+
+    const payout =
+      amount * rate;
+
+
+    document.getElementById("cryptoRate").innerText =
+      "₦" +
+      rate.toLocaleString() +
+      " per " +
+      crypto;
+
+
+    document.getElementById("cryptoPayout").innerText =
+      "₦" +
+      payout.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+
+    updateSummary();
+
   }
 
 
@@ -633,13 +1140,18 @@
     const type =
       document.getElementById("exchangeType").value;
 
-    const receive =
-      document.getElementById("receiveCurrency").value;
 
-    document.getElementById("summaryType").innerText =
-      type === "giftcard"
-        ? "Gift Card"
-        : "Cryptocurrency";
+    const summaryType =
+      document.getElementById("summaryType");
+
+    const summaryAsset =
+      document.getElementById("summaryAsset");
+
+    const summaryAmount =
+      document.getElementById("summaryAmount");
+
+    const summaryPayout =
+      document.getElementById("summaryPayout");
 
 
     if (type === "giftcard") {
@@ -647,19 +1159,37 @@
       const card =
         document.getElementById("giftCard").value;
 
-      const amount =
-        document.getElementById("giftValue").value;
-
       const currency =
         document.getElementById("giftCurrency").value;
 
-      document.getElementById("summaryAsset").innerText =
-        card;
+      const amount =
+        parseFloat(
+          document.getElementById("giftValue").value
+        ) || 0;
 
-      document.getElementById("summaryAmount").innerText =
-        amount
-          ? currency + " " + Number(amount).toLocaleString()
+
+      const payoutText =
+        document.getElementById("giftPayout").innerText;
+
+
+      summaryType.innerText =
+        "Gift Card";
+
+
+      summaryAsset.innerText =
+        card.charAt(0).toUpperCase() +
+        card.slice(1);
+
+
+      summaryAmount.innerText =
+        amount > 0
+          ? currency + " " +
+            amount.toLocaleString()
           : "Not entered";
+
+
+      summaryPayout.innerText =
+        payoutText;
 
     } else {
 
@@ -667,26 +1197,82 @@
         document.getElementById("crypto").value;
 
       const amount =
-        document.getElementById("cryptoAmount").value;
+        parseFloat(
+          document.getElementById("cryptoAmount").value
+        ) || 0;
 
-      document.getElementById("summaryAsset").innerText =
+
+      const payoutText =
+        document.getElementById("cryptoPayout").innerText;
+
+
+      summaryType.innerText =
+        "Cryptocurrency";
+
+
+      summaryAsset.innerText =
         crypto;
 
-      document.getElementById("summaryAmount").innerText =
-        amount
+
+      summaryAmount.innerText =
+        amount > 0
           ? amount + " " + crypto
           : "Not entered";
 
+
+      summaryPayout.innerText =
+        payoutText;
+
     }
 
+  }
+
+
+  function previewImage(event) {
+
+    const file =
+      event.target.files[0];
+
+    const preview =
+      document.getElementById("preview");
+
+    const previewBox =
+      document.getElementById("imagePreview");
+
+
+    if (!file) {
+
+      previewBox.style.display =
+        "none";
+
+      return;
+
+    }
+
+
     /*
-      Payout is intentionally not calculated here.
-      A real payout should use a secure server-side rate
-      and transaction system.
+      Only show image locally.
+      It is NOT uploaded to a server.
     */
 
-    document.getElementById("summaryPayout").innerText =
-      "To be confirmed in final quote";
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+      function(e) {
+
+        preview.src =
+          e.target.result;
+
+        previewBox.style.display =
+          "block";
+
+      };
+
+
+    reader.readAsDataURL(file);
+
   }
 
 
@@ -701,26 +1287,34 @@
     const phone =
       document.getElementById("phone").value.trim();
 
+
     if (!name || !email || !phone) {
 
       alert(
-        "Please enter your name, email address, and phone number."
+        "Please enter your full name, email address, and phone number."
       );
 
       return;
+
     }
+
 
     document.getElementById("success").style.display =
       "block";
 
+
     window.scrollTo({
+
       top: document.body.scrollHeight,
+
       behavior: "smooth"
+
     });
 
   }
 
 
+  updateGiftRate();
   updateSummary();
 
 </script>
