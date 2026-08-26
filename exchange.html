@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exchange | Wonmo Exchange</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: white;
+      min-height: 100vh;
+    }
+
+    /* NAVIGATION */
+
+    nav {
+      background: #050505;
+      border-bottom: 1px solid #b8860b;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #d4af37;
+    }
+
+    /* PAGE */
+
+    .page {
+      min-height: calc(100vh - 70px);
+      padding: 70px 20px;
+      background:
+        radial-gradient(circle at center, #2b2105 0%, #080808 45%, #000 100%);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title h1 {
+      color: #d4af37;
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .title p {
+      color: #aaa;
+      font-size: 16px;
+    }
+
+    /* EXCHANGE BOX */
+
+    .exchange-box {
+      background: #0d0d0d;
+      border: 1px solid #6f5714;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 15px 50px rgba(0,0,0,.5);
+    }
+
+    .label {
+      display: block;
+      color: #ccc;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 7px;
+      border: 1px solid #555;
+      background: #151515;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: #d4af37;
+    }
+
+    /* SWAP */
+
+    .swap-container {
+      text-align: center;
+      margin: -5px 0 15px;
+    }
+
+    .swap {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid #d4af37;
+      background: #111;
+      color: #d4af37;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .swap:hover {
+      background: #d4af37;
+      color: #000;
+    }
+
+    /* RATE */
+
+    .rate-box {
+      background: #151515;
+      border: 1px solid #49390e;
+      padding: 18px;
+      border-radius: 8px;
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .rate-box span {
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .rate {
+      color: #d4af37;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    /* RESULT */
+
+    .result {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .result-label {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .result-amount {
+      color: #d4af37;
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    /* BUTTON */
+
+    .continue {
+      width: 100%;
+      padding: 16px;
+      margin-top: 25px;
+      background: #d4af37;
+      color: #000;
+      border: none;
+      border-radius: 7px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .continue:hover {
+      background: #f0d36a;
+    }
+
+    .notice {
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      margin-top: 18px;
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid #49390e;
+      color: #777;
+      background: #000;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      nav {
+        padding: 16px 20px;
+      }
+
+      nav div:last-child {
+        display: none;
+      }
+
+      .page {
+        padding: 50px 15px;
+      }
+
+      .title h1 {
+        font-size: 35px;
+      }
+
+      .exchange-box {
+        padding: 22px;
+      }
+
+      .input-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <nav>
+
+    <div class="logo">
+      WONMO EXCHANGE
+    </div>
+
+    <div>
+      <a href="index.html">Home</a>
+      <a href="exchange.html">Exchange</a>
+    </div>
+
+  </nav>
+
+
+  <!-- PAGE -->
+
+  <main class="page">
+
+    <div class="container">
+
+      <div class="title">
+
+        <h1>Exchange</h1>
+
+        <p>
+          Calculate your exchange instantly.
+        </p>
+
+      </div>
+
+
+      <div class="exchange-box">
+
+        <!-- SEND -->
+
+        <label class="label">
+          You Send
+        </label>
+
+        <div class="input-row">
+
+          <select id="fromCurrency">
+
+            <option value="USD">USD — US Dollar</option>
+            <option value="NGN">NGN — Nigerian Naira</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+
+          </select>
+
+          <input
+            type="number"
+            id="amount"
+            placeholder="Enter amount"
+            min="0"
+            step="0.01">
+
+        </div>
+
+
+        <!-- SWAP -->
+
+        <div class="swap-container">
+
+          <button
+            class="swap"
+            onclick="swapCurrencies()">
+            ⇅
+          </button>
+
+        </div>
+
+
+        <!-- RECEIVE -->
+
+        <label class="label">
+          You Receive
+        </label>
+
+        <div class="input-row">
+
+          <select id="toCurrency">
+
+            <option value="NGN">NGN — Nigerian Naira</option>
+            <option value="USD">USD — US Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+
+          </select>
+
+          <input
+            type="text"
+            id="result"
+            placeholder="0.00"
+            readonly>
+
+        </div>
+
+
+        <!-- RATE -->
+
+        <div class="rate-box">
+
+          <span>
+            Current Demo Rate
+          </span>
+
+          <div
+            class="rate"
+            id="rate">
+            1 USD = 1,500 NGN
+          </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="result">
+
+          <div class="result-label">
+            Estimated Amount
+          </div>
+
+          <div
+            class="result-amount"
+            id="displayResult">
+            0.00
+          </div>
+
+        </div>
+
+
+        <!-- BUTTON -->
+
+        <button
+          class="continue"
+          onclick="continueExchange()">
+          Continue Exchange
+        </button>
+
+
+        <p class="notice">
+          Rates shown are for demonstration purposes.
+          Final rates may vary at the time of transaction.
+        </p>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+
+    © 2026
+    <strong>Wonmo Exchange</strong>.
+    All rights reserved.
+
+  </footer>
+
+
+  <script>
+
+    /*
+      DEMO EXCHANGE RATES
+
+      These are examples only.
+      We can replace these with live rates later.
+    */
+
+    const rates = {
+
+      USD: {
+        USD: 1,
+        NGN: 1500,
+        GBP: 0.78,
+        EUR: 0.92
+      },
+
+      NGN: {
+        USD: 1 / 1500,
+        NGN: 1,
+        GBP: 0.78 / 1500,
+        EUR: 0.92 / 1500
+      },
+
+      GBP: {
+        USD: 1.28,
+        NGN: 1500 * 1.28,
+        GBP: 1,
+        EUR: 1.18
+      },
+
+      EUR: {
+        USD: 1.09,
+        NGN: 1500 * 1.09,
+        GBP: 0.85,
+        EUR: 1
+      }
+
+    };
+
+
+    function calculateExchange() {
+
+      const from =
+        document.getElementById("fromCurrency").value;
+
+      const to =
+        document.getElementById("toCurrency").value;
+
+      const amount =
+        parseFloat(document.getElementById("amount").value) || 0;
+
+      const rate =
+        rates[from][to];
+
+      const result =
+        amount * rate;
+
+
+      document.getElementById("result").value =
+        result.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+
+      document.getElementById("displayResult").innerText =
+        result.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+
+      document.getElementById("rate").innerText =
+        "1 " + from + " = " +
+        rate.toLocaleString(undefined, {
+          maximumFractionDigits: 6
+        }) +
+        " " + to;
+
+    }
+
+
+    function swapCurrencies() {
+
+      const from =
+        document.getElementById("fromCurrency");
+
+      const to =
+        document.getElementById("toCurrency");
+
+      const oldFrom = from.value;
+
+      from.value = to.value;
+
+      to.value = oldFrom;
+
+      calculateExchange();
+
+    }
+
+
+    function continueExchange() {
+
+      const amount =
+        document.getElementById("amount").value;
+
+      if (!amount || amount <= 0) {
+
+        alert("Please enter an amount first.");
+
+        return;
+
+      }
+
+      alert(
+        "Your exchange request is ready. " +
+        "A secure transaction system will be connected here."
+      );
+
+    }
+
+
+    document
+      .getElementById("amount")
+      .addEventListener(
+        "input",
+        calculateExchange
+      );
+
+
+    document
+      .getElementById("fromCurrency")
+      .addEventListener(
+        "change",
+        calculateExchange
+      );
+
+
+    document
+      .getElementById("toCurrency")
+      .addEventListener(
+        "change",
+        calculateExchange
+      );
+
+
+    calculateExchange();
+
+  </script>
+
+</body>
+</html>
