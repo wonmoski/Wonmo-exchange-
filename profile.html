@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+<title>My Profile | Wonmo Exchange</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #050505;
+  color: white;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 30px 18px 70px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #302405,
+      #050505 55%
+    );
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header h1 {
+  margin: 12px 0 5px;
+}
+
+.header p {
+  color: #999;
+}
+
+.card {
+  background: #0d0d0d;
+  border: 1px solid #5d4b14;
+  border-radius: 14px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  color: #d4af37;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  color: #ddd;
+  font-size: 14px;
+  margin: 15px 0 7px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 14px;
+
+  background: #171717;
+  color: white;
+
+  border: 1px solid #555;
+  border-radius: 7px;
+
+  font-size: 15px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #d4af37;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: #d4af37;
+  color: #000;
+
+  font-weight: bold;
+  font-size: 15px;
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+.secondary {
+  background: transparent;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+}
+
+.message {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.logout {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.logout button {
+  width: auto;
+  padding: 10px 25px;
+  background: #171717;
+  color: #aaa;
+  border: 1px solid #444;
+}
+
+.note {
+  color: #888;
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="container">
+
+
+<div class="header">
+
+<div class="logo">
+WONMO EXCHANGE
+</div>
+
+<h1>
+My Profile
+</h1>
+
+<p>
+Manage your account and payout information.
+</p>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div class="card">
+
+<h2>
+Personal Information
+</h2>
+
+
+<label>
+Full Name
+</label>
+
+<input
+id="fullName"
+type="text"
+placeholder="Your full name"
+>
+
+
+<label>
+Phone / WhatsApp
+</label>
+
+<input
+id="phone"
+type="tel"
+placeholder="Your phone number"
+>
+
+
+<label>
+Email
+</label>
+
+<input
+id="email"
+type="email"
+disabled
+>
+
+
+<button
+id="saveProfile"
+onclick="saveProfile()">
+
+Save Profile
+
+</button>
+
+</div>
+
+
+<!-- PAYOUT -->
+
+<div class="card">
+
+<h2>
+Payout Account
+</h2>
+
+<p class="note">
+
+This is where your exchange payouts will be sent.
+Make sure the information is correct.
+
+</p>
+
+
+<label>
+Bank Name
+</label>
+
+<input
+id="bankName"
+type="text"
+placeholder="e.g. Access Bank"
+>
+
+
+<label>
+Account Name
+</label>
+
+<input
+id="accountName"
+type="text"
+placeholder="Name on bank account"
+>
+
+
+<label>
+Account Number
+</label>
+
+<input
+id="accountNumber"
+type="text"
+inputmode="numeric"
+maxlength="20"
+placeholder="Your account number"
+>
+
+
+<label>
+Payout Currency
+</label>
+
+<select id="currency">
+
+<option value="NGN">
+Nigerian Naira (₦)
+</option>
+
+</select>
+
+
+<button
+id="saveBank"
+onclick="savePayout()">
+
+Save Payout Account
+
+</button>
+
+
+<div
+id="message"
+class="message">
+</div>
+
+</div>
+
+
+<!-- EXCHANGE -->
+
+<div class="card">
+
+<h2>
+Ready to Exchange?
+</h2>
+
+<p class="note">
+
+Once your profile and payout information are saved,
+you can continue to the exchange page.
+
+</p>
+
+
+<button
+onclick="goExchange()">
+
+Continue to Exchange
+
+</button>
+
+</div>
+
+
+<div class="logout">
+
+<button onclick="logout()">
+Log Out
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+
+/*
+=========================================
+SUPABASE CONNECTION
+=========================================
+
+Use the SAME Project URL and
+Publishable key you used in signup.html.
+
+NEVER use the Secret/service-role key.
+*/
+
+
+const SUPABASE_URL =
+"https://mxxbqbqudavouycdspfz.supabase.co/rest/v1/";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_PQI2Aw-4xlUaelLJD2pUyA_XAi5MzqX";
+
+
+const supabaseClient =
+window.supabase.createClient(
+
+SUPABASE_URL,
+
+SUPABASE_PUBLISHABLE_KEY
+
+);
+
+
+/*
+=========================================
+CHECK LOGIN
+=========================================
+*/
+
+
+async function checkUser() {
+
+const {
+data: {
+user
+}
+} =
+await supabaseClient
+.auth
+.getUser();
+
+
+if (!user) {
+
+window.location.href =
+"login.html";
+
+return null;
+
+}
+
+
+document.getElementById("email")
+.value =
+user.email || "";
+
+
+return user;
+
+}
+
+
+/*
+=========================================
+LOAD PROFILE
+=========================================
+*/
+
+
+async function loadProfile() {
+
+const user =
+await checkUser();
+
+
+if (!user) return;
+
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("profiles")
+.select("*")
+.eq("id", user.id)
+.maybeSingle();
+
+
+if (data) {
+
+document.getElementById("fullName")
+.value =
+data.full_name || "";
+
+
+document.getElementById("phone")
+.value =
+data.phone || "";
+
+}
+
+
+/*
+Load payout account
+*/
+
+
+const {
+data: payout
+} =
+await supabaseClient
+.from("payout_accounts")
+.select("*")
+.eq("user_id", user.id)
+.order("created_at", {
+ascending: false
+})
+.limit(1)
+.maybeSingle();
+
+
+if (payout) {
+
+document.getElementById("bankName")
+.value =
+payout.bank_name || "";
+
+
+document.getElementById("accountName")
+.value =
+payout.account_name || "";
+
+
+document.getElementById("accountNumber")
+.value =
+payout.account_number || "";
+
+
+document.getElementById("currency")
+.value =
+payout.currency || "NGN";
+
+}
+
+}
+
+
+/*
+=========================================
+SAVE PROFILE
+=========================================
+*/
+
+
+async function saveProfile() {
+
+const user =
+await checkUser();
+
+
+if (!user) return;
+
+
+const name =
+document.getElementById("fullName")
+.value
+.trim();
+
+
+const phone =
+document.getElementById("phone")
+.value
+.trim();
+
+
+if (!name || !phone) {
+
+alert(
+"Please enter your name and phone number."
+);
+
+return;
+
+}
+
+
+const button =
+document.getElementById("saveProfile");
+
+
+button.disabled = true;
+
+button.innerText =
+"Saving...";
+
+
+const {
+error
+} =
+await supabaseClient
+.from("profiles")
+.upsert({
+
+id: user.id,
+
+full_name: name,
+
+phone: phone
+
+});
+
+
+button.disabled = false;
+
+button.innerText =
+"Save Profile";
+
+
+if (error) {
+
+alert(error.message);
+
+return;
+
+}
+
+
+alert(
+"Profile saved successfully."
+);
+
+}
+
+
+/*
+=========================================
+SAVE PAYOUT ACCOUNT
+=========================================
+*/
+
+
+async function savePayout() {
+
+const user =
+await checkUser();
+
+
+if (!user) return;
+
+
+const bank =
+document.getElementById("bankName")
+.value
+.trim();
+
+
+const accountName =
+document.getElementById("accountName")
+.value
+.trim();
+
+
+const accountNumber =
+document.getElementById("accountNumber")
+.value
+.trim();
+
+
+const currency =
+document.getElementById("currency")
+.value;
+
+
+const message =
+document.getElementById("message");
+
+
+if (
+!bank ||
+!accountName ||
+!accountNumber
+) {
+
+message.innerText =
+"Please complete all payout fields.";
+
+return;
+
+}
+
+
+if (
+accountNumber.length < 6
+) {
+
+message.innerText =
+"Please enter a valid account number.";
+
+return;
+
+}
+
+
+const button =
+document.getElementById("saveBank");
+
+
+button.disabled = true;
+
+button.innerText =
+"Saving...";
+
+
+/*
+Check whether this customer
+already has a payout account.
+*/
+
+
+const {
+data: existing
+} =
+await supabaseClient
+.from("payout_accounts")
+.select("id")
+.eq("user_id", user.id)
+.limit(1)
+.maybeSingle();
+
+
+let result;
+
+
+if (existing) {
+
+result =
+await supabaseClient
+.from("payout_accounts")
+.update({
+
+bank_name: bank,
+
+account_name: accountName,
+
+account_number: accountNumber,
+
+currency: currency
+
+})
+.eq("id", existing.id)
+.eq("user_id", user.id);
+
+} else {
+
+result =
+await supabaseClient
+.from("payout_accounts")
+.insert({
+
+user_id: user.id,
+
+bank_name: bank,
+
+account_name: accountName,
+
+account_number: accountNumber,
+
+currency: currency
+
+});
+
+}
+
+
+button.disabled = false;
+
+button.innerText =
+"Save Payout Account";
+
+
+if (result.error) {
+
+message.innerText =
+result.error.message;
+
+return;
+
+}
+
+
+message.innerText =
+"Payout account saved successfully.";
+
+}
+
+
+/*
+=========================================
+GO TO EXCHANGE
+=========================================
+*/
+
+
+function goExchange() {
+
+window.location.href =
+"exchange.html";
+
+}
+
+
+/*
+=========================================
+LOG OUT
+=========================================
+*/
+
+
+async function logout() {
+
+await supabaseClient
+.auth
+.signOut();
+
+
+window.location.href =
+"login.html";
+
+}
+
+
+/*
+START
+*/
+
+loadProfile();
+
+</script>
+
+</body>
+
+</html>
