@@ -3,151 +3,601 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wonmo Exchange</title>
+
+  <title>Wonmo Exchange | Fast & Secure Exchange</title>
 
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000000;
-      color: #ffffff;
+      padding: 0;
     }
 
-    .header {
-      background: linear-gradient(135deg, #000000, #1a1a1a);
-      padding: 25px;
-      text-align: center;
-      border-bottom: 2px solid #d4af37;
-    }
-
-    .logo {
-      color: #d4af37;
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .tagline {
-      color: #ffffff;
-      margin-top: 8px;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(
-        rgba(0,0,0,0.85),
-        rgba(20,15,0,0.9)
-      );
-    }
-
-    .hero h1 {
-      color: #d4af37;
-      font-size: 45px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: auto;
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: white;
       line-height: 1.6;
     }
 
-    .button {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 14px 30px;
-      background: #d4af37;
-      color: #000000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 6px;
+    /* NAVIGATION */
+
+    nav {
+      width: 100%;
+      background: #050505;
+      border-bottom: 1px solid #b8860b;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .section {
-      padding: 50px 20px;
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #d4af37;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    nav ul li a:hover {
+      color: #d4af37;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px;
+
+      background:
+        radial-gradient(circle at center, #2b2105 0%, #080808 45%, #000000 100%);
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 76px);
+      color: #d4af37;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .hero p {
+      color: #cccccc;
+      font-size: 18px;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .buttons {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .btn-gold {
+      background: #d4af37;
+      color: #000;
+    }
+
+    .btn-gold:hover {
+      background: #f0d36a;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: #d4af37;
+      color: #000;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 900px;
+      margin: -50px auto 0;
+      position: relative;
+      padding: 0 20px;
+    }
+
+    .stat {
+      background: #111;
+      border: 1px solid #6f5714;
+      padding: 30px 15px;
       text-align: center;
     }
 
-    .section h2 {
+    .stat h3 {
       color: #d4af37;
-      font-size: 30px;
+      font-size: 28px;
+    }
+
+    .stat p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 90px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      color: #d4af37;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #aaa;
+    }
+
+    /* SERVICES */
+
+    .services {
+      background: #080808;
     }
 
     .cards {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      max-width: 1100px;
+      margin: auto;
     }
 
     .card {
-      background: #111111;
-      border: 1px solid #d4af37;
-      border-radius: 10px;
-      padding: 25px;
-      width: 250px;
+      background: linear-gradient(145deg, #151515, #0b0b0b);
+      border: 1px solid #5e4a13;
+      padding: 35px 25px;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #d4af37;
+    }
+
+    .card-icon {
+      font-size: 38px;
+      margin-bottom: 15px;
     }
 
     .card h3 {
       color: #d4af37;
+      margin-bottom: 12px;
+      font-size: 21px;
     }
 
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: #000000;
-      border-top: 1px solid #d4af37;
+    .card p {
       color: #aaa;
+      font-size: 15px;
+    }
+
+    /* WHY US */
+
+    .why-us {
+      background: #050505;
+    }
+
+    .why-grid {
+      max-width: 1000px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .why-item {
+      padding: 25px;
+      border-left: 3px solid #d4af37;
+      background: #0e0e0e;
+    }
+
+    .why-item h3 {
+      color: #d4af37;
+      margin-bottom: 8px;
+    }
+
+    .why-item p {
+      color: #aaa;
+    }
+
+    /* CTA */
+
+    .cta {
+      text-align: center;
+      background:
+        linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.95)),
+        radial-gradient(circle, #3a2b05, #000);
+    }
+
+    .cta h2 {
+      color: #d4af37;
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    /* WHATSAPP */
+
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #25D366;
+      color: white;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 28px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.5);
+      z-index: 999;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #000;
+      border-top: 1px solid #4d3b0d;
+      text-align: center;
+      padding: 35px 20px;
+      color: #777;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 768px) {
+
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        min-height: 580px;
+      }
+
+      .hero h2 {
+        font-size: 22px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+        margin-top: 0;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 70px 5%;
+      }
+
+      .section-title h2 {
+        font-size: 31px;
+      }
+
+      .cta h2 {
+        font-size: 32px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header class="header">
+  <!-- NAVIGATION -->
+
+  <nav>
     <div class="logo">WONMO EXCHANGE</div>
-    <div class="tagline">Trusted • Secure • Reliable</div>
-  </header>
 
-  <section class="hero">
-    <h1>Welcome to Wonmo Exchange</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">Why Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-    <p>
-      Your trusted platform for fast, secure and reliable exchange services.
-      Experience a simple and convenient way to manage your transactions.
-    </p>
 
-    <a href="#" class="button">Get Started</a>
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+
+    <div class="hero-content">
+
+      <h1>WONMO EXCHANGE</h1>
+
+      <h2>Exchange With Confidence.</h2>
+
+      <p>
+        Fast, convenient and reliable exchange services
+        designed to make every transaction simple.
+      </p>
+
+      <div class="buttons">
+
+        <a href="#contact" class="btn btn-gold">
+          Start an Exchange
+        </a>
+
+        <a href="#services" class="btn btn-outline">
+          Explore Services
+        </a>
+
+      </div>
+
+    </div>
+
   </section>
 
-  <section class="section">
-    <h2>Our Services</h2>
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <h3>Fast</h3>
+      <p>Quick transaction processing</p>
+    </div>
+
+    <div class="stat">
+      <h3>Secure</h3>
+      <p>Security-focused transactions</p>
+    </div>
+
+    <div class="stat">
+      <h3>Reliable</h3>
+      <p>Service you can count on</p>
+    </div>
+
+  </div>
+
+
+  <!-- SERVICES -->
+
+  <section class="services" id="services">
+
+    <div class="section-title">
+
+      <h2>Our Services</h2>
+
+      <p>
+        Simple exchange solutions built around your needs.
+      </p>
+
+    </div>
+
 
     <div class="cards">
 
       <div class="card">
+
+        <div class="card-icon">💱</div>
+
         <h3>Currency Exchange</h3>
-        <p>Fast and convenient currency exchange services.</p>
+
+        <p>
+          Convenient currency exchange with straightforward
+          service and transparent communication.
+        </p>
+
       </div>
 
-      <div class="card">
-        <h3>Secure Transactions</h3>
-        <p>Your transactions are handled with security in mind.</p>
-      </div>
 
       <div class="card">
-        <h3>Fast Service</h3>
-        <p>Simple and efficient processing for your exchange needs.</p>
+
+        <div class="card-icon">💳</div>
+
+        <h3>Digital Exchange</h3>
+
+        <p>
+          Exchange services designed for today's digital
+          transactions.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">⚡</div>
+
+        <h3>Fast Transactions</h3>
+
+        <p>
+          Efficient processing to help you complete your
+          exchange without unnecessary delays.
+        </p>
+
       </div>
 
     </div>
+
   </section>
 
+
+  <!-- WHY US -->
+
+  <section class="why-us" id="about">
+
+    <div class="section-title">
+
+      <h2>Why Choose Wonmo?</h2>
+
+      <p>
+        Professional service with your transaction experience
+        in mind.
+      </p>
+
+    </div>
+
+
+    <div class="why-grid">
+
+      <div class="why-item">
+
+        <h3>Professional Service</h3>
+
+        <p>
+          We aim to provide a smooth and professional experience
+          from start to finish.
+        </p>
+
+      </div>
+
+
+      <div class="why-item">
+
+        <h3>Clear Communication</h3>
+
+        <p>
+          Straightforward communication keeps every transaction
+          easy to understand.
+        </p>
+
+      </div>
+
+
+      <div class="why-item">
+
+        <h3>Convenient Process</h3>
+
+        <p>
+          Our goal is to make exchanging simple and convenient.
+        </p>
+
+      </div>
+
+
+      <div class="why-item">
+
+        <h3>Customer Focused</h3>
+
+        <p>
+          Your experience matters. We focus on dependable
+          customer service.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CALL TO ACTION -->
+
+  <section class="cta" id="contact">
+
+    <h2>Ready to Exchange?</h2>
+
+    <p>
+      Contact Wonmo Exchange today to get started.
+    </p>
+
+    <a
+      href="https://wa.me/YOURNUMBER"
+      class="btn btn-gold">
+      Contact Us on WhatsApp
+    </a>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
   <footer>
-    © 2026 Wonmo Exchange. All rights reserved.
+
+    <p>
+      © 2026 <strong>Wonmo Exchange</strong>.
+      All rights reserved.
+    </p>
+
   </footer>
+
+
+  <!-- WHATSAPP BUTTON -->
+
+  <a
+    href="https://wa.me/2348165878966"
+    class="whatsapp"
+    aria-label="WhatsApp">
+    ☎
+  </a>
 
 </body>
 </html>
