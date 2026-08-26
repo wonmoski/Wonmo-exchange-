@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login | Wonmo Exchange</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #050505;
+      color: white;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+
+      background:
+        radial-gradient(
+          circle at top,
+          #302405,
+          #050505 55%
+        );
+    }
+
+    .box {
+      width: 100%;
+      max-width: 450px;
+
+      background: #0d0d0d;
+
+      border: 1px solid #d4af37;
+
+      border-radius: 15px;
+
+      padding: 30px;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.6);
+    }
+
+    .logo {
+      text-align: center;
+
+      color: #d4af37;
+
+      font-size: 26px;
+
+      font-weight: bold;
+
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      text-align: center;
+
+      font-size: 28px;
+
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+
+      color: #999;
+
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+
+      margin: 15px 0 7px;
+
+      color: #ddd;
+
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+
+      padding: 14px;
+
+      background: #171717;
+
+      color: white;
+
+      border: 1px solid #555;
+
+      border-radius: 7px;
+
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: none;
+
+      border-color: #d4af37;
+    }
+
+    button {
+      width: 100%;
+
+      margin-top: 25px;
+
+      padding: 15px;
+
+      border: 0;
+
+      border-radius: 7px;
+
+      background: #d4af37;
+
+      color: #000;
+
+      font-size: 16px;
+
+      font-weight: bold;
+    }
+
+    button:disabled {
+      opacity: .6;
+    }
+
+    .message {
+      margin-top: 15px;
+
+      text-align: center;
+
+      font-size: 14px;
+    }
+
+    .links {
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #999;
+
+      font-size: 14px;
+
+      line-height: 2;
+    }
+
+    .links a {
+      color: #d4af37;
+
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <div class="box">
+
+    <div class="logo">
+      WONMO EXCHANGE
+    </div>
+
+    <h1>
+      Welcome Back
+    </h1>
+
+    <p class="subtitle">
+      Sign in to your Wonmo Exchange account.
+    </p>
+
+
+    <label for="email">
+      Email Address
+    </label>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="you@example.com"
+      autocomplete="email"
+    >
+
+
+    <label for="password">
+      Password
+    </label>
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Your password"
+      autocomplete="current-password"
+    >
+
+
+    <button
+      id="loginButton"
+      onclick="login()">
+
+      Log In
+
+    </button>
+
+
+    <div
+      id="message"
+      class="message">
+    </div>
+
+
+    <div class="links">
+
+      <div>
+        Don't have an account?
+        <a href="signup.html">
+          Create Account
+        </a>
+      </div>
+
+      <div>
+        <a href="#" onclick="resetPassword()">
+          Forgot Password?
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  /*
+  ==========================================
+  SUPABASE CONNECTION
+  ==========================================
+
+  Use the SAME Project URL and
+  Publishable key you used in signup.html.
+
+  NEVER use a Secret/service-role key here.
+  */
+
+
+  const SUPABASE_URL =
+    "PASTE_YOUR_PROJECT_URL_HERE";
+
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+  async function login() {
+
+    const email =
+      document.getElementById("email")
+      .value
+      .trim();
+
+
+    const password =
+      document.getElementById("password")
+      .value;
+
+
+    const message =
+      document.getElementById("message");
+
+
+    const button =
+      document.getElementById("loginButton");
+
+
+    message.innerText = "";
+
+
+    if (!email || !password) {
+
+      message.innerText =
+        "Please enter your email and password.";
+
+      return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.innerText =
+      "Signing in...";
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+      });
+
+
+    if (error) {
+
+      message.innerText =
+        error.message;
+
+      button.disabled = false;
+
+      button.innerText =
+        "Log In";
+
+      return;
+
+    }
+
+
+    message.innerText =
+      "Login successful. Redirecting...";
+
+
+    window.location.href =
+      "profile.html";
+
+  }
+
+
+  async function resetPassword() {
+
+    const email =
+      document.getElementById("email")
+      .value
+      .trim();
+
+
+    const message =
+      document.getElementById("message");
+
+
+    if (!email) {
+
+      message.innerText =
+        "Enter your email address first.";
+
+      return;
+
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient.auth
+      .resetPasswordForEmail(email, {
+
+        redirectTo:
+          "https://wonmoski.github.io/Wonmo-exchange-/login.html"
+
+      });
+
+
+    if (error) {
+
+      message.innerText =
+        error.message;
+
+      return;
+
+    }
+
+
+    message.innerText =
+      "Password reset instructions have been sent to your email.";
+
+  }
+
+</script>
+
+</body>
+</html>
